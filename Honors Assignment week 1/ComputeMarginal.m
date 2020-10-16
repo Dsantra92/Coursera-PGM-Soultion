@@ -26,15 +26,11 @@ end
 % M should be a factor
 % Remember to renormalize the entries of M!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if ~isempty(E)
-  F = ObserveEvidence(F,E);
-  for i=1:length(F)
-    F(i) = Normalize(F(i),E);
-  endfor
-endif
 M = ComputeJointDistribution(F);
-V =  M.var(~ismember(M.var,V));
+M = ObserveEvidence(M, E);
+V = setdiff(M.var, V);
 M = FactorMarginalization(M,V);
+M.val = M.val./sum(M.val);
 %M = struct('var', [], 'card', [], 'val', []); % Returns empty factor. Change this.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
