@@ -64,6 +64,9 @@ genotypeFactor.card = [allelesToGenotypes(end), allelesToGenotypes(end), alleles
 genotypeFactor.val = zeros(1, prod(genotypeFactor.card));
 % Replace the zeros in genotypeFactor.val with the correct values.
 
+% We open up the genotypes to their respective alleles. For each pair of alleles,
+% we add the probability 0.25 at the index of genotype given allele 1 and allele 2.
+% 0.25 is the probabilty of occourenece of a gene combination in 2x2 punet sqquare.
 
 for i = 1:size(genotypesToAlleles,1)
   for j = 1:size(genotypesToAlleles,1)

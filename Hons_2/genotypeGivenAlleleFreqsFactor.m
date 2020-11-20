@@ -62,8 +62,12 @@ genotypeFactor.var = genotypeVar;
 % Fill in genotypeFactor.card.  This should be a 1-D row vector.
 genotypeFactor.card = allelesToGenotypes(end);
 
-genotypeFactor.val = zeros(1, prod(genotypeFactor.card));
 % Replace the zeros in genotypeFactor.val with the correct values.
+genotypeFactor.val = zeros(1, prod(genotypeFactor.card));
+
+% We do an exhaustive loop over all sets of possibilities of allele combination.
+% Then we convert the alleles to genotypes using allelesToGenotypes function
+% and add the probability of the alleles occouring together.
 
 for i = 1:numAlleles
   for j = 1:numAlleles

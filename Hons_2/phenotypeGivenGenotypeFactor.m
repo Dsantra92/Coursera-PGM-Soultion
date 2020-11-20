@@ -42,6 +42,17 @@ phenotypeFactor.card = [2, length(alphaList)];
 
 phenotypeFactor.val = zeros(1, prod(phenotypeFactor.card));
 % Replace the zeros in phentoypeFactor.val with the correct values.
+% We can expose the structure of the problem here.
+% The full cpd here for 3 alleles is :
+% [1, 1] 
+% [2, 1]
+% [1, 2]
+% [2, 2]
+% [1, 3]
+% [2, 3]
+% Every alternate index points to the probability of the genotype having 
+% phenotype representation as 1.The index just below it points to the probabilty
+% that the genotype will have phenotype representation as 2.
 phenotypeFactor.val(1:2:end) = alphaList;
 phenotypeFactor.val(2:2:end) = 1 .- alphaList;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
