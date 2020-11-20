@@ -46,7 +46,7 @@ phenotypeFactor = struct('var', [], 'card', [], 'val', []);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 
 % Fill in phenotypeFactor.var.  This should be a 1-D row vector.
-phenotypeFactor.var = cat(1, phenotypeVar, geneCopyVarOneList, geneCopyVarTwoList);
+phenotypeFactor.var = transpose(cat(1, phenotypeVar, geneCopyVarOneList, geneCopyVarTwoList));
 
 m = length(geneCopyVarOneList);
 
@@ -55,12 +55,26 @@ m = length(geneCopyVarOneList);
 arr = [];
 for i=1:m
   n = length(alleleWeights{i}); % No of alleles for each gene.
-  arr = cat(1, arr, n);
+  arr = cat(2, arr, n);
 endfor
-phenotypeFactor.card = cat(1, [2], arr, arr); 
+phenotypeFactor.card = cat(2, [2], arr, arr); 
+
 phenotypeFactor.val = zeros(1, prod(phenotypeFactor.card));
 
 % Replace the zeros in phentoypeFactor.val with the correct values.
+for i = 1:2
+  for j = 1:2
+    for m = 1:2
+      for n = 1:2
+        indx_1 = AssignmentToIndex([1, i, j, m, n], phenotypeFactor.card);
+        indx_2 = AssignmentToIndex([2, i, j, m, n], phenotypeFactor.card);
+        sum = alleleWeights{1}(i)+alleleWeights{2}(j)+alleleWeights{1}(m)+alleleWeights{2}(n);
+        phenotypeFactor.val(indx_1) = computeSigmoid(sum);
+        phenotypeFactor.val(indx_2) = computeSigmoid(-sum);
+      endfor
+    endfor
+  endfor
+endfor
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
