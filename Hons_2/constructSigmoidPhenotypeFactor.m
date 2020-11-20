@@ -46,9 +46,21 @@ phenotypeFactor = struct('var', [], 'card', [], 'val', []);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 
 % Fill in phenotypeFactor.var.  This should be a 1-D row vector.
+phenotypeFactor.var = cat(1, phenotypeVar, geneCopyVarOneList, geneCopyVarTwoList);
+
+m = length(geneCopyVarOneList);
+
 % Fill in phenotypeFactor.card.  This should be a 1-D row vector.
 
+arr = [];
+for i=1:m
+  n = length(alleleWeights{i}); % No of alleles for each gene.
+  arr = cat(1, arr, n);
+endfor
+phenotypeFactor.card = cat(1, [2], arr, arr); 
 phenotypeFactor.val = zeros(1, prod(phenotypeFactor.card));
+
 % Replace the zeros in phentoypeFactor.val with the correct values.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -65,6 +65,11 @@ numAlleles = length(alleleFreqs); % Number of alleles
 % 1 - numPeople: genotype variables
 % numPeople+1 - 2*numPeople: phenotype variables
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+% We loop over each person and find check if the pedigree is available or not.
+% For the first part of val we fill up the genotypes for each person depending
+% on the availability of the pedigree.
+
 for i = 1:numPeople
   if(pedigree.parents(i) == 0)
     factorList(i) = genotypeGivenAlleleFreqsFactor(alleleFreqs, i);
@@ -73,6 +78,7 @@ for i = 1:numPeople
   endif
 endfor
 
+% For the next part of the loop, we fill up the phenotype of the pople.
 
 for i = numPeople+1:2*numPeople
   factorList(i) = phenotypeGivenGenotypeFactor(alphaList, i-numPeople, i);
