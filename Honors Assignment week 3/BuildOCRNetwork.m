@@ -50,7 +50,7 @@ if (~isempty(pairwiseModel))
     % implementation (which you must provide.
     %%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    pairwiseFactors = ComputeEqualPairwiseFactors(images, imageModel.K);
+    pairwiseFactors = ComputePairwiseFactors(images, pairwiseModel, imageModel.K);
     %pairwiseFactors = ComputePairwiseFactors(images, pairwiseModel, imageModel.K);
 else
     pairwiseFactors = [];
