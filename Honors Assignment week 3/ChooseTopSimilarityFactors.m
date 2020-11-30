@@ -23,7 +23,19 @@ if (length(allFactors) <= F)
 end
 
 % Your code here:
-factors = allFactors; %%% REMOVE THIS LINE
+factors = repmat(struct('var', [],'card', [], 'val', []), F, 1);
+idx = 1;
+
+for i=1:F
+  for j = 2:length(allFactors)
+    if(allFactors(j).val(1) > allFactors(idx).val(1))
+      idx = j;
+    endif
+  endfor
+  factors(i) = allFactors(idx);
+  allFactors(idx) = [];
+  idx = 1;
+endfor
 
 end
 
